@@ -45,5 +45,18 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+    addBrand: (brand) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BRAND_COLLETION).insertOne(brand).then((res) => {
+                resolve(res.ops[0]._id)
+            })
+        })
+    },
+    getAllBrands: () => {
+        return new Promise(async (resolve, reject) => {
+            let brands = await db.get().collection(collection.BRAND_COLLETION).find().toArray()
+            resolve(brands)
+        })
     }
 }
