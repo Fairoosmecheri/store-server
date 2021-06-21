@@ -4,7 +4,7 @@ var objectId = require('mongodb').ObjectID
 module.exports = {
     addProduct: (product) => {
         return new Promise((resolve, reject) => {
-            db.get().collection('product').insertOne(product).then((res) => {
+            db.get().collection(collection.PRODUCT_COLLECTION).insertOne(product).then((res) => {
                 resolve(res.ops[0]._id)
             })
         })
@@ -57,6 +57,19 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let brands = await db.get().collection(collection.BRAND_COLLETION).find().toArray()
             resolve(brands)
+        })
+    },
+    addCategory: (category) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.CATEGORY_COLLECTION).insertOne(category).then((res) => {
+                resolve(res.ops[0]._id)
+            })
+        })
+    },
+    getAllCategories: () => {
+        return new Promise(async (resolve, reject) => {
+            let categories = await db.get().collection(collection.CATEGORY_COLLECTION).find().toArray()
+            resolve(categories)
         })
     }
 }
